@@ -14,6 +14,9 @@ import {
   Heart,
   Calculator,
   MessageCircle,
+  Save,
+  Edit2,
+  CheckCircle,
 } from "lucide-react";
 
 const MobileFrame = ({ children, title }) => (
@@ -108,6 +111,41 @@ export default function MobileAppWireframes() {
         <Button icon={Camera}>Upload PDF</Button>
         <Button primary icon={FileText}>
           Save & Analyze
+        </Button>
+      </MobileFrame>
+
+      {/* Blood Test Analysis */}
+      <MobileFrame title="Analysis Results">
+        <div className="mb-4 text-sm">
+          Your blood test results have been analyzed. See details below:
+        </div>
+
+        <div className="mb-3 bg-gray-100 p-2 rounded text-sm">
+          <h3 className="font-bold">Hemoglobin:</h3>
+          <div>
+            14.2 g/dL - <span className="text-green-500">Normal</span>
+          </div>
+          <div className="text-xs text-gray-600">
+            Explanation: Hemoglobin levels are within the normal range. No
+            action required.
+          </div>
+        </div>
+
+        <div className="mb-3 bg-gray-100 p-2 rounded text-sm">
+          <h3 className="font-bold">Glucose:</h3>
+          <div>
+            110 mg/dL - <span className="text-red-500">Abnormal</span>
+          </div>
+          <div className="text-xs text-gray-600">
+            Explanation: Glucose levels are slightly elevated. Consider a
+            follow-up test and lifestyle changes.
+          </div>
+        </div>
+
+        <Button icon={Save}>Save Analysis</Button>
+        <Button icon={Edit2}>Edit Results</Button>
+        <Button primary icon={CheckCircle}>
+          View Detailed Analysis
         </Button>
       </MobileFrame>
 
