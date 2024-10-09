@@ -17,6 +17,7 @@ import {
   Save,
   Edit2,
   CheckCircle,
+  AlertCircle,
 } from "lucide-react";
 
 const MobileFrame = ({ children, title }) => (
@@ -158,6 +159,35 @@ export default function MobileAppWireframes() {
           Add Medication
         </Button>
         <Button icon={Activity}>Check Interactions</Button>
+      </MobileFrame>
+
+      {/* Interaction Results Screen */}
+      <MobileFrame title="Interaction Results">
+        <div className="mb-3 bg-red-100 p-2 rounded text-sm">
+          <h3 className="font-bold text-red-500">Interaction Warning:</h3>
+          <div>
+            Metformin and Lisinopril may interact to cause hypoglycemia.
+          </div>
+          <div className="text-xs text-gray-600">
+            Suggested Action: Monitor blood sugar closely or consult your doctor
+            for alternative medications.
+          </div>
+        </div>
+
+        <div className="mb-3 bg-red-100 p-2 rounded text-sm">
+          <h3 className="font-bold text-red-500">Interaction Warning:</h3>
+          <div>Ibuprofen and Lisinopril may cause kidney issues.</div>
+          <div className="text-xs text-gray-600">
+            Suggested Action: Avoid taking these medications together without
+            medical advice.
+          </div>
+        </div>
+
+        <Button icon={Pill}>Add Medication</Button>
+        <Button icon={Activity}>Check Interactions</Button>
+        <Button primary icon={Save}>
+          Save Results
+        </Button>
       </MobileFrame>
 
       <MobileFrame title="Medical Conditions">
