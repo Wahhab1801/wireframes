@@ -22,38 +22,40 @@ import {
   XCircle,
   AlertCircle,
   Key,
-  Edit3,
   Phone,
   MapPin,
   Shield,
 } from "lucide-react";
 
 const MobileFrame = ({ children, title }) => (
-  <div className="border-4 border-gray-800 rounded-3xl p-4 mb-8 w-72 h-[640px] bg-white overflow-y-auto relative">
+  <div className="border-4 border-gray-800 rounded-3xl p-4 mb-8 w-72 h-[640px] bg-white relative overflow-hidden">
     <div className="bg-white py-2 px-4 mb-4 flex justify-between items-center border-b border-gray-200">
       <ArrowLeft size={20} />
       <h2 className="text-lg font-bold">{title}</h2>
       <Bell size={20} />
     </div>
-    <div className="pb-16">{children}</div>
+    <div className="overflow-y-auto h-[calc(100%-4rem)] hide-scrollbar">
+      {children}
+    </div>
     <AppBar />
   </div>
 );
 
-const Input = ({ placeholder }) => (
+const Input = ({ placeholder, defaultValue }) => (
   <input
     className="border border-gray-300 p-2 mb-3 w-full rounded-lg text-sm text-gray-700 placeholder-gray-400"
     placeholder={placeholder}
+    defaultValue={defaultValue}
   />
 );
 
-const Button = ({ children, primary, icon: IconComponent }) => (
+const Button = ({ children, primary, icon: Icon }) => (
   <button
     className={`w-full py-2 px-4 rounded-lg mb-3 flex items-center justify-center text-sm ${
       primary ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-700"
     }`}
   >
-    {IconComponent && <IconComponent size={16} className="mr-2" />}
+    {Icon && <Icon size={16} className="mr-2" />}
     {children}
   </button>
 );
@@ -64,6 +66,16 @@ const AppBar = () => (
     <PlusCircle size={20} />
     <User size={20} />
     <Settings size={20} />
+  </div>
+);
+
+const ProfileItem = ({ icon: Icon, label, value }) => (
+  <div className="flex items-center mb-3">
+    <Icon size={18} className="text-gray-500 mr-3" />
+    <div>
+      <div className="text-xs text-gray-500">{label}</div>
+      <div className="text-sm font-medium">{value}</div>
+    </div>
   </div>
 );
 
@@ -87,16 +99,6 @@ const FeedbackMessage = ({ type, message }) => {
     </div>
   );
 };
-
-const ProfileItem = ({ icon: Icon, label, value }) => (
-  <div className="flex items-center mb-4">
-    <Icon size={20} className="text-gray-500 mr-3" />
-    <div>
-      <div className="text-sm text-gray-500">{label}</div>
-      <div className="font-medium">{value}</div>
-    </div>
-  </div>
-);
 
 export default function MobileAppWireframes() {
   return (
@@ -226,6 +228,60 @@ export default function MobileAppWireframes() {
         </div>
         <Button primary>Verify</Button>
         <div className="text-center text-sm text-blue-500">Resend Code</div>
+      </MobileFrame>
+
+      <MobileFrame title="User Consent">
+        <div className="mb-4">
+          <Shield size={48} className="text-blue-500 mx-auto mb-2" />
+          <h2 className="text-xl font-semibold text-center mb-2">
+            Data Privacy and Consent
+          </h2>
+          <p className="text-sm text-gray-600 mb-4">
+            We value your privacy and want to ensure you understand how we use
+            your data.
+          </p>
+        </div>
+
+        <div className="mb-4">
+          <h3 className="font-semibold mb-2">We collect and process:</h3>
+          <ul className="list-disc list-inside text-sm">
+            <li>Personal information (name, email, phone)</li>
+            <li>Health data (blood tests, medications)</li>
+            <li>App usage information</li>
+          </ul>
+        </div>
+
+        <div className="mb-4">
+          <h3 className="font-semibold mb-2">We use this data to:</h3>
+          <ul className="list-disc list-inside text-sm">
+            <li>Provide personalized health insights</li>
+            <li>Improve our services</li>
+            <li>Send important notifications</li>
+          </ul>
+        </div>
+
+        <div className="mb-4">
+          <label className="flex items-center text-sm">
+            <input type="checkbox" className="mr-2" />I agree to the collection
+            and processing of my data as described in the Privacy Policy
+          </label>
+        </div>
+
+        <div className="mb-4">
+          <label className="flex items-center text-sm">
+            <input type="checkbox" className="mr-2" />I agree to receive
+            notifications and updates about my health (optional)
+          </label>
+        </div>
+
+        <Button primary>I Agree</Button>
+        <Button>Decline</Button>
+
+        <p className="text-xs text-center mt-4 text-gray-500">
+          You can change your preferences anytime in Settings. For more
+          information, read our full{" "}
+          <span className="text-blue-500">Privacy Policy</span>.
+        </p>
       </MobileFrame>
 
       <MobileFrame title="Forgot Password">
@@ -501,12 +557,12 @@ export default function MobileAppWireframes() {
       </MobileFrame>
 
       <MobileFrame title="User Profile">
-        <div className="text-center mb-6">
-          <div className="w-24 h-24 rounded-full bg-gray-300 mx-auto mb-4 flex items-center justify-center">
-            <User size={48} className="text-gray-600" />
+        <div className="text-center mb-4">
+          <div className="w-20 h-20 rounded-full bg-gray-300 mx-auto mb-2 flex items-center justify-center">
+            <User size={36} className="text-gray-600" />
           </div>
-          <h2 className="text-xl font-semibold">John Doe</h2>
-          <p className="text-sm text-gray-500">Member since: January 2023</p>
+          <h2 className="text-lg font-semibold">John Doe</h2>
+          <p className="text-xs text-gray-500">Member since: January 2023</p>
         </div>
         <ProfileItem icon={Mail} label="Email" value="john.doe@example.com" />
         <ProfileItem icon={Phone} label="Phone" value="+1 (555) 123-4567" />
@@ -516,21 +572,21 @@ export default function MobileAppWireframes() {
           value="123 Main St, City, Country"
         />
         <ProfileItem icon={Activity} label="Health Status" value="Good" />
-        <Button primary icon={Edit3}>
+        <Button primary icon={Edit2}>
           Edit Profile
         </Button>
         <Button icon={Lock}>Change Password</Button>
       </MobileFrame>
 
       <MobileFrame title="Edit Profile">
-        <div className="mb-6 text-center">
-          <div className="w-24 h-24 rounded-full bg-gray-300 mx-auto mb-4 flex items-center justify-center relative">
-            <User size={48} className="text-gray-600" />
-            <div className="absolute bottom-0 right-0 bg-blue-500 rounded-full p-2">
-              <Camera size={16} className="text-white" />
+        <div className="mb-4 text-center">
+          <div className="w-20 h-20 rounded-full bg-gray-300 mx-auto mb-2 flex items-center justify-center relative">
+            <User size={36} className="text-gray-600" />
+            <div className="absolute bottom-0 right-0 bg-blue-500 rounded-full p-1.5">
+              <Camera size={12} className="text-white" />
             </div>
           </div>
-          <p className="text-sm text-blue-500">Change Profile Picture</p>
+          <p className="text-xs text-blue-500">Change Profile Picture</p>
         </div>
         <Input placeholder="Full Name" defaultValue="John Doe" />
         <Input placeholder="Email" defaultValue="john.doe@example.com" />
